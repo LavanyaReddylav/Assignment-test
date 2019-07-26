@@ -1,0 +1,141 @@
+<div fxLayout fxLayoutAlign="space-between center">
+        <!-- Search Filter -->
+        <div>
+          <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+
+      </div>
+      <div class="mat-elevation-z3">
+        <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows>
+      
+          <!-- Checkbox Column -->
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+      
+          <!-- Name Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+            <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+          </ng-container>
+      
+          <!-- mobile Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> name </th>
+            <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+          </ng-container>
+      
+          <!-- user status Column -->
+          <ng-container matColumnDef="username">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> username </th>
+            <td mat-cell *matCellDef="let row"> {{row.username}} </td>
+          </ng-container>
+          <!-- Loginid Column-->
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> email </th>
+            <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+          </ng-container>
+          <!-- Role -->
+          <ng-container matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> phone </th>
+            <td mat-cell *matCellDef="let row"> {{row.phone}} </td>
+          </ng-container>
+          <!-- Sales Office -->
+          <ng-container matColumnDef="website">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> website</th>
+            <td mat-cell *matCellDef="let row"> {{row.website}} </td>
+          </ng-container>
+       <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let row" [attr.colspan]="displayedColumns.length">
+      <div class="example-element-detail"  fxLayout fxLayoutAlign="center"
+           [@detailExpand]="row == expandedElement ? 'expanded' : 'collapsed'">
+           <div fxLayout>
+            <div class="counter-address mat-elevation-z3">
+              <h3>Address</h3>
+              <div>
+                <mat-list>
+                  <mat-list-item>
+                    <mat-icon matListIcon>store</mat-icon>
+                    <h5> Street : {{row.address.street}} </h5>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <mat-icon matListIcon>location_city</mat-icon>
+                    <h5> Suite : {{row.address.suite}} </h5>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <mat-icon matListIcon>room</mat-icon>
+                    <h5> City : {{row.address.city}} </h5>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <mat-icon matListIcon>pin_drop</mat-icon>
+                    <h5> Zipcode : {{row.address.zipcode}} </h5>
+                  </mat-list-item>
+                </mat-list>
+              </div>
+            </div>
+            <div class="counter-address mat-elevation-z3">
+              <h3>Details</h3>
+              <div>
+                <mat-list>
+                  <mat-list-item>
+                    <mat-icon matListIcon>gps_fixed</mat-icon>
+                    <h5> Latitude : {{row.address.geo.lat}} </h5>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <mat-icon matListIcon>gps_not_fixed</mat-icon>
+                    <h5> Longitude : {{row.address.geo.lng}} </h5>
+                  </mat-list-item>
+                </mat-list>
+              </div>
+            </div>
+            <div class="counter-address mat-elevation-z3">
+              <h3>Company Details</h3>
+              <div>
+                <mat-list>
+                  <mat-list-item>
+                    <mat-icon matListIcon>business</mat-icon>
+                    <h5> Name : {{row.company.name}} </h5>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <mat-icon matListIcon>location_city</mat-icon>
+                    <h5> Ctch : {{row.company.catchPhrase}} </h5>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <mat-icon matListIcon>clear_all
+                    </mat-icon>
+                    <h5> BS : {{row.company.bs}} </h5>
+                  </mat-list-item>
+                </mat-list>
+              </div>
+            </div>
+      </div>
+      </div>
+    </td>
+  </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"  [class.example-expanded-row]="expandedElement === row"
+          (click)="expandedElement = expandedElement === row ? null : row">
+          </tr>
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        </table>
+      
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+      
+<app-table-two></app-table-two>
+
+      
+      

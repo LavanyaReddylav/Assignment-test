@@ -1,0 +1,35 @@
+<mat-toolbar color="primary" class="example-toolbar">
+  <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+  <h1 class="example-app-name">Responsive App</h1>
+</mat-toolbar>
+
+
+  <mat-sidenav-container class="example-container">
+    <mat-sidenav #snav mode="side"  class="example-sidenav">
+        
+          <mat-nav-list class="sidenav-list">
+              <a mat-list-item routerLink="dashboard" ><mat-icon>dashboard</mat-icon>
+                  <span>DashBoard</span>
+                </a> 
+            </mat-nav-list>
+            
+          <mat-nav-list class="sidenav-list">
+              <a mat-list-item routerLink="table" ><mat-icon>list_alt
+                </mat-icon>
+                  <span>Table</span>
+                </a> 
+            </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="sidenav-content">
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+
+<!-- <div *ngIf="!shouldRun">Please open on Stackblitz to see result</div> -->
+
+
+<!-- Copyright 2019 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->
+<!-- <router-outlet></router-outlet> -->
